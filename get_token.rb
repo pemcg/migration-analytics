@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 #
-# ma_vm_collector
-#
-# Author:   Peter McGowan (pemcg@redhat.com)
-#           Copyright 2019 Peter McGowan, Red Hat
-#
-# Revision History
+# get_token
 #
 require 'rest-client'
 require 'json'
@@ -13,12 +8,12 @@ require 'optparse'
 
 begin
   options = {
-            :server     => nil,
+            :server     => 'localhost',
             :username   => nil,
             :password   => nil
             }
   parser = OptionParser.new do|opts|
-    opts.banner = "Usage: ma_vm_collector.rb [options]"
+    opts.banner = "Usage: get_token.rb [options]"
     opts.on('-s', '--server server', 'CloudForms server to connect to') do |server|
       options[:server] = server
     end
@@ -35,11 +30,6 @@ begin
   end
   parser.parse!
   
-  if options[:server].nil?
-    server = "localhost"
-  else
-    server = options[:server]
-  end
   if options[:username].nil?
     username = "admin"
   else
