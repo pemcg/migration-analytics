@@ -9,8 +9,8 @@ require 'optparse'
 begin
   options = {
             :server     => 'localhost',
-            :username   => nil,
-            :password   => nil
+            :username   => 'admin',
+            :password   => 'smartvm'
             }
   parser = OptionParser.new do|opts|
     opts.banner = "Usage: get_token.rb [options]"
@@ -29,27 +29,16 @@ begin
     end
   end
   parser.parse!
-  
-  if options[:username].nil?
-    username = "admin"
-  else
-    username = options[:username]
-  end
-  if options[:password].nil?
-    password = "smartvm"
-  else
-    password = options[:password]
-  end
-  
-  api_uri = "https://#{server}/api"
+   
+  api_uri = "https://#{options[:server]}/api"
   #
   # Get an authentication token
   #
   url = URI.encode(api_uri + '/auth')
   rest_return = RestClient::Request.execute(method:      :get,
                                               url:        url,
-                                              :user       => username,
-                                              :password   => password,
+                                              :user       => options[:username],
+                                              :password   => options[:password],
                                               :headers    => {:accept => :json},
                                               verify_ssl: false)
   auth_token = JSON.parse(rest_return)['auth_token']
