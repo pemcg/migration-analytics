@@ -1,5 +1,3 @@
 # migration-analytics
-<<<<<<< HEAD
-# migration-analytics
-=======
->>>>>>> 437f7e7df55ca26b6df95df655db9e66de5146eb
+
+./get_token.rb | awk '{print $3}' | xargs ./ma_collector.rb -t
